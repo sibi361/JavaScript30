@@ -2,6 +2,8 @@
 
 [02 - JS and CSS Clock](https://sibi361.github.io/JavaScript30/02%20-%20JS%20and%20CSS%20Clock/index-START.html)
 
+[03 - CSS Variables](https://sibi361.github.io/JavaScript30/03%20-%20CSS%20Variables/index-START.html)
+
 ![](https://javascript30.com/images/JS3-social-share.png)
 
 # JavaScript30

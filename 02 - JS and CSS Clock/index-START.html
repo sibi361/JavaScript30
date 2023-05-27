@@ -68,6 +68,7 @@
 
     <script>
       const CLOCK_UPDATE_INTERVAL = 1000;
+      const CSS_OFFSET_DEGREES = 90;
 
       const hourHand = document.querySelector(".hour-hand");
       const minHand = document.querySelector(".min-hand");
@@ -75,8 +76,6 @@
 
       function getCurrentTime() {
         const time = new Date();
-        console.log(time);
-        // % 12 as 24 hour time provided; for eg. 14 % 12 gives 2
         const hours = time.getHours() % 12;
         const minutes = time.getMinutes();
         const seconds = time.getSeconds();
@@ -88,18 +87,30 @@
         const degreesPerMinute = 360 / 60;
         const degreesPerSecond = 360 / 60;
 
-        const hoursDegree =
-          degreesPerHour * (time.hours + time.minutes / 60) + 90;
+        const hoursDegree = degreesPerHour * (time.hours + time.minutes / 60);
         const minutesDegree =
-          degreesPerMinute * (time.minutes + time.seconds / 60) + 90;
-        const secondsDegree = time.seconds * degreesPerSecond + 90;
+          degreesPerMinute * (time.minutes + time.seconds / 60);
+        const secondsDegree = time.seconds * degreesPerSecond;
 
-        hourHand.style.transform = `rotate(${hoursDegree}deg)`;
-        minHand.style.transform = `rotate(${minutesDegree}deg)`;
-        secondHand.style.transform = `rotate(${secondsDegree}deg)`;
+        if (!hoursDegree) secondsOffset += 360;
+        if (!minutesDegree) minutesOffset += 360;
+        if (!secondsDegree) secondsOffset += 360;
+
+        const h = hoursDegree + hoursOffset;
+        const m = minutesDegree + minutesOffset;
+        const s = secondsDegree + secondsOffset;
+
+        hourHand.style.transform = `rotate(${h}deg)`;
+        minHand.style.transform = `rotate(${m}deg)`;
+        secondHand.style.transform = `rotate(${s}deg)`;
       }
 
+      let hoursOffset = CSS_OFFSET_DEGREES;
+      let minutesOffset = CSS_OFFSET_DEGREES;
+      let secondsOffset = CSS_OFFSET_DEGREES;
+
       setClock();
+
       setInterval(setClock, CLOCK_UPDATE_INTERVAL);
     </script>
   </body>

@@ -84,10 +84,10 @@
             }
 
             function handleInputChange(eventTarget) {
-                setCssVariable(
-                    eventTarget.name,
-                    eventTarget.value + eventTarget.dataset.sizing
-                );
+                // required to handle the colour picker which doesn't have data-sizing
+                const unit = eventTarget.dataset.sizing || "";
+
+                setCssVariable(eventTarget.name, eventTarget.value + unit);
             }
 
             inputs.forEach((input) =>
